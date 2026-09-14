@@ -291,7 +291,7 @@ for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar="🛡️" if msg["role"] == "assistant" else None):
         st.write(msg["content"])
         if msg.get("category"):
-            render_recommendation(msg["category"], reasoning=msg.get("reasoning"))
+            render_recommendation(msg["category"])
 
 user_input = st.chat_input("Опишіть свою задачу...")
 if user_input:
@@ -309,7 +309,7 @@ if user_input:
         else:
             reply_text = result["reasoning"] or "Ось відповідна категорія бази правил."
             st.write(reply_text)
-            render_recommendation(result["category"], reasoning=result["reasoning"])
+            render_recommendation(result["category"])
             st.session_state.messages.append({
                 "role": "assistant",
                 "content": reply_text,
