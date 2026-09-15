@@ -83,14 +83,14 @@ st.markdown(
     .om-tlp-amber { background: #3A2E0D; color: #FFC24B; border: 1px solid #5C4A17; }
     .om-tlp-green { background: #12301C; color: #5FE08A; border: 1px solid #1E4A2C; }
 
-    .om-quickbtn button {
+    div[data-testid="stButton"] button {
         width: 100%;
         text-align: left !important;
         border: 1px solid #30363D !important;
         background: #161B22 !important;
         color: #C9D1D9 !important;
     }
-    .om-quickbtn button:hover {
+    div[data-testid="stButton"] button:hover {
         border-color: #4C8BF5 !important;
         color: #E6EDF3 !important;
     }
@@ -148,7 +148,7 @@ KNOWLEDGE_BASE = {
     },
     4: {
         "label": "Автономне багатоетапне розслідування",
-        "tool": "AI Agent Orchestration (напр. OpenOSINT)",
+        "tool": "OpenOSINT",
         "tlp": "amber",
         "risk_note": "Помірний ризик: допускає self-hosted розгортання, але окремі "
                       "виклики все одно йдуть до зовнішніх API.",
@@ -243,7 +243,12 @@ def classify_task(user_text: str) -> dict:
         raw = response.content[0].text.strip()
         raw = re.sub(r"^```(json)?|```$", "", raw, flags=re.MULTILINE).strip()
         parsed = json.loads(raw)
-        return {"category": parsed.get("category"), "reasoning": parsed.get("reasoning"), "error": None}
+        category_raw = parsed.get("category")
+        try:
+            category = int(category_raw) if category_raw is not None else None
+        except (TypeError, ValueError):
+            category = None
+        return {"category": category, "reasoning": parsed.get("reasoning"), "error": None}
     except json.JSONDecodeError:
         return {"category": None, "reasoning": None, "error": "Не вдалося розібрати відповідь моделі."}
     except Exception as exc:
@@ -275,10 +280,8 @@ st.caption("Оберіть категорію вручну або опишіть
 cols = st.columns(4)
 for i, (cid, entry) in enumerate(KNOWLEDGE_BASE.items()):
     with cols[i]:
-        st.markdown('<div class="om-quickbtn">', unsafe_allow_html=True)
         if st.button(entry["label"], key=f"quick_{cid}"):
             st.session_state.selected_category = cid
-        st.markdown("</div>", unsafe_allow_html=True)
 
 if st.session_state.selected_category:
     render_recommendation(st.session_state.selected_category)
@@ -290,7 +293,7 @@ st.divider()
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar="🛡️" if msg["role"] == "assistant" else None):
         st.write(msg["content"])
-        if msg.get("category"):
+        if msg.get("category") is not None:
             render_recommendation(msg["category"])
 
 user_input = st.chat_input("Опишіть свою задачу...")
