@@ -15,101 +15,136 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    .block-container { padding-top: 2.5rem; max-width: 900px; }
+    html, body, [class*="css"] { font-size: 17px; }
+    .block-container { padding-top: 2rem; max-width: 980px; }
 
     .om-hero {
-        border-bottom: 1px solid #30363D;
+        border-bottom: 2px solid #1A3A5C;
         padding-bottom: 1.2rem;
-        margin-bottom: 1.6rem;
+        margin-bottom: 1.5rem;
     }
     .om-hero h1 {
-        font-family: 'JetBrains Mono', 'Courier New', monospace;
-        font-size: 1.6rem;
-        font-weight: 600;
-        letter-spacing: -0.01em;
+        font-size: 2rem;
+        font-weight: 700;
         margin-bottom: 0.3rem;
-        color: #E6EDF3;
+        color: #14213D;
     }
     .om-hero p {
-        color: #8B949E;
-        font-size: 0.92rem;
+        color: #45536B;
+        font-size: 1.05rem;
         margin: 0;
+        line-height: 1.5;
     }
 
     .om-card {
-        border: 1px solid #30363D;
-        border-radius: 6px;
-        padding: 1.1rem 1.3rem;
-        background: #161B22;
-        margin-bottom: 1rem;
+        border: 1px solid #D7DDE5;
+        border-radius: 10px;
+        padding: 1.4rem 1.6rem;
+        background: #FFFFFF;
+        margin-bottom: 1.2rem;
+        box-shadow: 0 1px 3px rgba(20,33,61,0.06);
     }
     .om-card .om-label {
-        color: #8B949E;
-        font-size: 0.78rem;
-        text-transform: none;
-        margin-bottom: 0.2rem;
+        color: #5B6B85;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 0.3rem;
     }
     .om-card .om-tool {
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: #E6EDF3;
-        margin-bottom: 0.6rem;
-    }
-    .om-card .om-rationale {
-        color: #C9D1D9;
-        font-size: 0.9rem;
-        margin-bottom: 0.9rem;
-        line-height: 1.5;
-    }
-    .om-card ol {
-        margin: 0;
-        padding-left: 1.1rem;
-        color: #C9D1D9;
-        font-size: 0.88rem;
-        line-height: 1.7;
-    }
-
-    .om-tlp {
-        display: inline-block;
-        font-family: 'JetBrains Mono', 'Courier New', monospace;
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        padding: 2px 9px;
-        border-radius: 3px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #14213D;
         margin-bottom: 0.7rem;
     }
-    .om-tlp-red { background: #3B1416; color: #FF6B6B; border: 1px solid #5C1E22; }
-    .om-tlp-amber { background: #3A2E0D; color: #FFC24B; border: 1px solid #5C4A17; }
-    .om-tlp-green { background: #12301C; color: #5FE08A; border: 1px solid #1E4A2C; }
+    .om-card .om-rationale {
+        color: #2B364A;
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
+        line-height: 1.55;
+    }
+    .om-card .om-risknote {
+        color: #5B6B85;
+        font-size: 0.92rem;
+    }
+    .om-card ol {
+        margin: 0.4rem 0 0;
+        padding-left: 1.3rem;
+        color: #2B364A;
+        font-size: 1rem;
+        line-height: 1.8;
+    }
 
-    div[data-testid="stButton"] button {
+    .om-risk {
+        display: inline-block;
+        font-size: 0.88rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        padding: 5px 14px;
+        border-radius: 5px;
+        margin-bottom: 0.9rem;
+    }
+    .om-risk-high { background: #FDE8E8; color: #A6291C; border: 1px solid #F3B6B1; }
+    .om-risk-medium { background: #FFF3DC; color: #91600A; border: 1px solid #F5D28A; }
+    .om-risk-low { background: #E4F5E9; color: #1A7A41; border: 1px solid #A9DFBB; }
+
+    .om-scores {
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+        padding: 0.9rem 0;
+        margin: 0.6rem 0 1rem;
+        border-top: 1px solid #EBEEF2;
+        border-bottom: 1px solid #EBEEF2;
+    }
+    .om-score-block { min-width: 130px; }
+    .om-score-label { font-size: 0.85rem; color: #5B6B85; margin-bottom: 4px; }
+    .om-score-value { font-size: 0.95rem; font-weight: 700; color: #14213D; margin-bottom: 4px; }
+    .om-dots { letter-spacing: 3px; font-size: 1.1rem; }
+    .om-dot-filled { color: #1A3A5C; }
+    .om-dot-empty { color: #D7DDE5; }
+
+    .om-quickbtn button {
         width: 100%;
         text-align: left !important;
-        border: 1px solid #30363D !important;
-        background: #161B22 !important;
-        color: #C9D1D9 !important;
+        border: 1.5px solid #D7DDE5 !important;
+        background: #FFFFFF !important;
+        color: #14213D !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        padding: 0.7rem 1rem !important;
     }
-    div[data-testid="stButton"] button:hover {
-        border-color: #4C8BF5 !important;
-        color: #E6EDF3 !important;
+    .om-quickbtn button:hover {
+        border-color: #1A3A5C !important;
+        background: #F3F6FA !important;
     }
+
+    .om-matrix-table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+    .om-matrix-table th {
+        text-align: left; padding: 10px 14px; background: #14213D; color: #FFFFFF;
+        font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.02em;
+    }
+    .om-matrix-table td { padding: 12px 14px; border-bottom: 1px solid #EBEEF2; color: #2B364A; }
+    .om-matrix-table tr:last-child td { border-bottom: none; }
+    .om-matrix-table .om-matrix-tool { font-weight: 700; color: #14213D; }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# ── Knowledge base (single source of truth — деталізовано у Розділі 2.3) ──
+# ── Knowledge base — дані відповідають Таблиці 2.1 наукової роботи ────────
 
 KNOWLEDGE_BASE = {
     1: {
         "label": "Аналіз тексту, переписки, нікнеймів",
         "tool": "Claude AI",
-        "tlp": "red",
+        "risk_level": "high",
         "risk_note": "Хмарний сервіс: без ручного відключення дані запиту за "
                       "замовчуванням можуть використовуватися для тренування моделі.",
         "rationale": "Категорія охоплює психолінгвістичний аналіз, розпізнавання "
                       "сленгу та структурування неформатованого тексту.",
+        "scores": {"Швидкість": 4, "Точність": 5, "OpSec": 0},
         "steps": [
             "Відкрити claude.ai та увійти в обліковий запис установи",
             "Вставити текст повідомлення або нікнейм у чат",
@@ -120,11 +155,12 @@ KNOWLEDGE_BASE = {
     2: {
         "label": "Пошук особи за фото обличчя",
         "tool": "PimEyes / FaceCheck.id",
-        "tlp": "red",
+        "risk_level": "high",
         "risk_note": "Хмарна індексація облич без можливості self-hosted розгортання; "
                       "результати доступні будь-кому з доступом до сервісу.",
         "rationale": "Категорія охоплює біометричний пошук за фотографією обличчя "
                       "серед відкритих джерел.",
+        "scores": {"Швидкість": 4, "Точність": 2, "OpSec": 1},
         "steps": [
             "Відкрити pimeyes.com або facecheck.id",
             "Завантажити фото лише за наявності законних підстав для пошуку",
@@ -135,10 +171,11 @@ KNOWLEDGE_BASE = {
     3: {
         "label": "Визначення локації фото без метаданих",
         "tool": "Picarta.ai",
-        "tlp": "red",
+        "risk_level": "high",
         "risk_note": "Хмарний сервіс комп'ютерного зору без self-hosted альтернативи.",
         "rationale": "Категорія охоплює геолокацію зображення за візуальними ознаками "
                       "(архітектура, рослинність, вивіски) без опори на EXIF-метадані.",
+        "scores": {"Швидкість": 4, "Точність": 4, "OpSec": 1},
         "steps": [
             "Відкрити picarta.ai",
             "Завантажити фото без прив'язаних GPS-метаданих",
@@ -148,12 +185,13 @@ KNOWLEDGE_BASE = {
     },
     4: {
         "label": "Автономне багатоетапне розслідування",
-        "tool": "OpenOSINT",
-        "tlp": "amber",
+        "tool": "AI Agent Orchestration (напр. OpenOSINT)",
+        "risk_level": "medium",
         "risk_note": "Помірний ризик: допускає self-hosted розгортання, але окремі "
                       "виклики все одно йдуть до зовнішніх API.",
         "rationale": "Категорія охоплює задачі, що вимагають автономного ланцюжка дій "
                       "(кілька джерел, кілька кроків) без покрокового керування аналітиком.",
+        "scores": {"Швидкість": 4, "Точність": None, "OpSec": 3},
         "steps": [
             "Встановити середовище (Python або хмарне на кшталт Google Colab)",
             "Налаштувати доступ до Anthropic API",
@@ -162,6 +200,18 @@ KNOWLEDGE_BASE = {
         ],
     },
 }
+
+RISK_TEXT = {"high": "ВИСОКИЙ ОПЕРАЦІЙНИЙ РИЗИК", "medium": "ПОМІРНИЙ ОПЕРАЦІЙНИЙ РИЗИК", "low": "НИЗЬКИЙ ОПЕРАЦІЙНИЙ РИЗИК"}
+RISK_CLASS = {"high": "om-risk-high", "medium": "om-risk-medium", "low": "om-risk-low"}
+
+
+def dots_html(score, max_score=5):
+    if score is None:
+        return '<span style="color:#5B6B85;">н/д — недостатньо даних (докладно в тексті роботи)</span>'
+    filled = "●" * score
+    empty = "●" * (max_score - score)
+    return (f'<span class="om-dots"><span class="om-dot-filled">{filled}</span>'
+            f'<span class="om-dot-empty">{empty}</span></span>')
 
 
 def render_recommendation(category_id: int, reasoning: str | None = None):
@@ -173,9 +223,16 @@ def render_recommendation(category_id: int, reasoning: str | None = None):
         )
         return
 
-    tlp_class = {"red": "om-tlp-red", "amber": "om-tlp-amber", "green": "om-tlp-green"}[entry["tlp"]]
-    tlp_text = {"red": "TLP: RED — критичний ризик", "amber": "TLP: AMBER — помірний ризик",
-                "green": "TLP: GREEN — низький ризик"}[entry["tlp"]]
+    score_blocks = ""
+    for label, val in entry["scores"].items():
+        val_text = f"{val} / 5" if val is not None else "н/д"
+        score_blocks += (
+            f'<div class="om-score-block">'
+            f'<div class="om-score-label">{label}</div>'
+            f'<div class="om-score-value">{val_text}</div>'
+            f'{dots_html(val)}'
+            f'</div>'
+        )
 
     steps_html = "".join(f"<li>{s}</li>" for s in entry["steps"])
 
@@ -184,22 +241,59 @@ def render_recommendation(category_id: int, reasoning: str | None = None):
         <div class="om-card">
             <div class="om-label">{entry['label']}</div>
             <div class="om-tool">{entry['tool']}</div>
-            <span class="om-tlp {tlp_class}">{tlp_text}</span>
-            <p class="om-rationale">{reasoning or entry['rationale']}<br>
-            <span style="color:#8B949E; font-size:0.83rem;">{entry['risk_note']}</span></p>
+            <span class="om-risk {RISK_CLASS[entry['risk_level']]}">{RISK_TEXT[entry['risk_level']]}</span>
+            <p class="om-rationale">{reasoning or entry['rationale']}</p>
+            <div class="om-scores">{score_blocks}</div>
+            <p class="om-risknote">{entry['risk_note']}</p>
             <ol>{steps_html}</ol>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    with st.expander("Наукове обґрунтування (Розділ 2.3)"):
+    with st.expander("Наукове обґрунтування та методика оцінювання"):
         st.write(
-            "Повна методика оцінювання за критеріями швидкості, точності та рівня "
-            "операційної безпеки (чек-лист із 5 пунктів) наведена в розділі 2 "
-            "супровідної наукової роботи. Ця картка відображає підсумковий "
-            "висновок матриці, а не самостійну оцінку моделі."
+            "Бали за критеріями швидкості, точності та рівня операційної безпеки "
+            "отримані за методикою підрозділу 2.1 наукової роботи (об'єктивний "
+            "вимірювальний інструмент для кожного критерію) і зведені в Таблицю 2.1. "
+            "Ця картка відображає підсумковий висновок формалізованої матриці правил, "
+            "а не самостійну оцінку мовної моделі."
         )
+
+
+def render_matrix():
+    rows = ""
+    for cid, entry in KNOWLEDGE_BASE.items():
+        cells = "".join(
+            f"<td>{dots_html(v)}</td>" for v in entry["scores"].values()
+        )
+        rows += (
+            f"<tr><td class='om-matrix-tool'>{entry['tool']}<br>"
+            f"<span style='font-weight:400; color:#5B6B85; font-size:0.88rem;'>{entry['label']}</span></td>"
+            f"<td><span class='om-risk {RISK_CLASS[entry['risk_level']]}'>{RISK_TEXT[entry['risk_level']]}</span></td>"
+            f"{cells}</tr>"
+        )
+    st.markdown(
+        f"""
+        <table class="om-matrix-table">
+            <thead>
+                <tr>
+                    <th>Інструмент / категорія</th>
+                    <th>Операційний ризик</th>
+                    <th>Швидкість</th>
+                    <th>Точність</th>
+                    <th>OpSec</th>
+                </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+        </table>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.caption(
+        "Повна методика розрахунку кожного балу — підрозділ 2.1 наукової роботи; "
+        "сирі результати тестування — підрозділ 2.2; зведена таблиця — Таблиця 2.1, підрозділ 2.3."
+    )
 
 
 # ── Claude-асистент: лише класифікація, без вигаданих рекомендацій ─────────
@@ -243,9 +337,9 @@ def classify_task(user_text: str) -> dict:
         raw = response.content[0].text.strip()
         raw = re.sub(r"^```(json)?|```$", "", raw, flags=re.MULTILINE).strip()
         parsed = json.loads(raw)
-        category_raw = parsed.get("category")
+        cat_val = parsed.get("category")
         try:
-            category = int(category_raw) if category_raw is not None else None
+            category = int(cat_val) if cat_val is not None else None
         except (TypeError, ValueError):
             category = None
         return {"category": category, "reasoning": parsed.get("reasoning"), "error": None}
@@ -261,61 +355,67 @@ st.markdown(
     """
     <div class="om-hero">
         <h1>OSINT-Matrix</h1>
-        <p>Система підтримки прийняття рішень для вибору ШІ-інструментів
-        в OSINT-розслідуваннях, з урахуванням операційної безпеки.</p>
+        <p>Система підтримки прийняття рішень для вибору ШІ-інструментів в OSINT-розслідуваннях.
+        Рекомендація формується за формалізованою матрицею з трьох вимірюваних критеріїв —
+        швидкості, точності та рівня операційної безпеки (методика — підрозділ 2.1 наукової роботи),
+        а не довільним підбором.</p>
     </div>
     """,
     unsafe_allow_html=True,
 )
-
-# ── Ручний вибір категорії ──────────────────────────────────────────────
 
 if "selected_category" not in st.session_state:
     st.session_state.selected_category = None
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-st.caption("Оберіть категорію вручну або опишіть задачу в чаті нижче")
+tab_rec, tab_matrix = st.tabs(["Отримати рекомендацію", "Порівняльна матриця"])
 
-cols = st.columns(4)
-for i, (cid, entry) in enumerate(KNOWLEDGE_BASE.items()):
-    with cols[i]:
-        if st.button(entry["label"], key=f"quick_{cid}"):
-            st.session_state.selected_category = cid
+with tab_rec:
+    st.caption("Оберіть категорію вручну або опишіть задачу в чаті нижче")
 
-if st.session_state.selected_category:
-    render_recommendation(st.session_state.selected_category)
+    cols = st.columns(4)
+    for i, (cid, entry) in enumerate(KNOWLEDGE_BASE.items()):
+        with cols[i]:
+            st.markdown('<div class="om-quickbtn">', unsafe_allow_html=True)
+            if st.button(entry["label"], key=f"quick_{cid}"):
+                st.session_state.selected_category = cid
+            st.markdown("</div>", unsafe_allow_html=True)
 
-st.divider()
+    if st.session_state.selected_category:
+        render_recommendation(st.session_state.selected_category)
 
-# ── Чат-асистент ─────────────────────────────────────────────────────────
+    st.divider()
 
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"], avatar="🛡️" if msg["role"] == "assistant" else None):
-        st.write(msg["content"])
-        if msg.get("category") is not None:
-            render_recommendation(msg["category"])
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"], avatar="🛡️" if msg["role"] == "assistant" else None):
+            st.write(msg["content"])
+            if msg.get("category") is not None:
+                render_recommendation(msg["category"])
 
-user_input = st.chat_input("Опишіть свою задачу...")
-if user_input:
-    st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user"):
-        st.write(user_input)
+    user_input = st.chat_input("Опишіть свою задачу...")
+    if user_input:
+        st.session_state.messages.append({"role": "user", "content": user_input})
+        with st.chat_message("user"):
+            st.write(user_input)
 
-    with st.chat_message("assistant", avatar="🛡️"):
-        with st.spinner("Визначаю категорію..."):
-            result = classify_task(user_input)
+        with st.chat_message("assistant", avatar="🛡️"):
+            with st.spinner("Визначаю категорію..."):
+                result = classify_task(user_input)
 
-        if result["error"]:
-            st.error(result["error"])
-            st.session_state.messages.append({"role": "assistant", "content": result["error"]})
-        else:
-            reply_text = result["reasoning"] or "Ось відповідна категорія бази правил."
-            st.write(reply_text)
-            render_recommendation(result["category"])
-            st.session_state.messages.append({
-                "role": "assistant",
-                "content": reply_text,
-                "category": result["category"],
-                "reasoning": result["reasoning"],
-            })
+            if result["error"]:
+                st.error(result["error"])
+                st.session_state.messages.append({"role": "assistant", "content": result["error"]})
+            else:
+                reply_text = result["reasoning"] or "Ось відповідна категорія бази правил."
+                st.write(reply_text)
+                render_recommendation(result["category"])
+                st.session_state.messages.append({
+                    "role": "assistant",
+                    "content": reply_text,
+                    "category": result["category"],
+                    "reasoning": result["reasoning"],
+                })
+
+with tab_matrix:
+    render_matrix()
