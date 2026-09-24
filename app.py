@@ -76,6 +76,26 @@ st.markdown(
         line-height: 1.8;
     }
 
+    .om-card .om-method {
+        margin-top: 1.1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #EBEEF2;
+    }
+    .om-card .om-method-title {
+        color: #5B6B85;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 0.4rem;
+    }
+    .om-card .om-method-text {
+        color: #2B364A;
+        font-size: 0.95rem;
+        line-height: 1.55;
+        margin: 0;
+    }
+
     .om-risk {
         display: inline-block;
         font-size: 0.88rem;
@@ -204,6 +224,14 @@ KNOWLEDGE_BASE = {
 RISK_TEXT = {"high": "ВИСОКИЙ ОПЕРАЦІЙНИЙ РИЗИК", "medium": "ПОМІРНИЙ ОПЕРАЦІЙНИЙ РИЗИК", "low": "НИЗЬКИЙ ОПЕРАЦІЙНИЙ РИЗИК"}
 RISK_CLASS = {"high": "om-risk-high", "medium": "om-risk-medium", "low": "om-risk-low"}
 
+METHODOLOGY_TEXT = (
+    "Кожен інструмент оцінено за трьома критеріями: швидкістю (час "
+    "виконання запиту в секундах), точністю (відповідність результату "
+    "наперед відомому еталону) та рівнем операційної безпеки (чек-лист "
+    "із 5 пунктів на основі політики конфіденційності сервісу). Бали "
+    "отримані практичним тестуванням, а не суб'єктивною оцінкою."
+)
+
 
 def dots_html(score, max_score=5):
     if score is None:
@@ -246,19 +274,14 @@ def render_recommendation(category_id: int, reasoning: str | None = None):
             <div class="om-scores">{score_blocks}</div>
             <p class="om-risknote">{entry['risk_note']}</p>
             <ol>{steps_html}</ol>
+            <div class="om-method">
+                <div class="om-method-title">Методика оцінювання</div>
+                <p class="om-method-text">{METHODOLOGY_TEXT}</p>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
-
-    with st.expander("Повна методика оцінювання"):
-        st.write(
-            "Кожен інструмент оцінено за трьома критеріями: швидкістю (час "
-            "виконання запиту в секундах), точністю (відповідність результату "
-            "наперед відомому еталону) та рівнем операційної безпеки (чек-лист "
-            "із 5 пунктів на основі політики конфіденційності сервісу). Бали "
-            "отримані практичним тестуванням, а не суб'єктивною оцінкою."
-        )
 
 
 def render_matrix():
